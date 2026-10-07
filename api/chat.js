@@ -17,29 +17,28 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Command is required' });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({ error: 'API key not configured on server' });
   }
 
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
+        contents: [
           {
-            role: 'system',
-            content: 'You are JARVIS, a helpful AI assistant. Address the user as sir when appropriate. Give clear, useful, and concise answers.'
-          },
-          {
-            role: 'user',
-            content: command
+            parts: [
+              {
+                text: `You are JARVIS, a helpful AI assistant. Address the user as sir when appropriate. Give clear, useful, and concise answers.\n\nUser command: ${command}`
+              }
+            ]
           }
         ]
       })
@@ -51,7 +50,17 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    return res.status(200).json(data);
+    const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I could not process that, sir.";
+
+    return res.status(200).json({
+      choices: [
+        {
+          message: {
+            content: replyText
+          }
+        }
+      ]
+    });
 
   } catch (error) {
     return res.status(500).json({ error: 'Internal Server Error' });
