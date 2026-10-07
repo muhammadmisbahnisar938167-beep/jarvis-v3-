@@ -1,24 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color"
-      content="#05080c">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JARVIS V3</title>
-
 <style>
-
-* {
-    box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 body {
     margin: 0;
     min-height: 100vh;
@@ -26,7 +13,6 @@ body {
     color: white;
     font-family: Arial, sans-serif;
 }
-
 .container {
     width: 100%;
     max-width: 600px;
@@ -36,11 +22,7 @@ body {
     display: flex;
     flex-direction: column;
 }
-
-.header {
-    text-align: center;
-}
-
+.header { text-align: center; }
 .logo {
     font-size: 40px;
     font-weight: bold;
@@ -48,21 +30,18 @@ body {
     color: #00cfff;
     text-shadow: 0 0 10px #00cfff, 0 0 25px #008cff;
 }
-
 .version {
     margin-top: 5px;
     color: #71818c;
     font-size: 11px;
     letter-spacing: 3px;
 }
-
 .core-area {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 30px 0;
 }
-
 .core {
     width: 165px;
     height: 165px;
@@ -75,7 +54,6 @@ body {
     animation: pulse 2s infinite;
     position: relative;
 }
-
 .core::before {
     content: "";
     width: 105px;
@@ -84,23 +62,11 @@ body {
     border: 2px solid #00cfff;
     box-shadow: 0 0 20px #00cfff, inset 0 0 20px #00cfff;
 }
-
-.core::after {
-    content: "";
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: white;
-    box-shadow: 0 0 10px white, 0 0 25px #00cfff;
-}
-
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
-
 .status {
     text-align: center;
     color: #00cfff;
@@ -108,7 +74,6 @@ body {
     letter-spacing: 2px;
     margin-bottom: 12px;
 }
-
 .chat-box {
     width: 100%;
     min-height: 180px;
@@ -119,7 +84,6 @@ body {
     border-radius: 16px;
     padding: 14px;
 }
-
 .message {
     margin: 9px 0;
     padding: 11px 12px;
@@ -127,27 +91,22 @@ body {
     line-height: 1.5;
     font-size: 14px;
 }
-
 .jarvis-message {
     background: #071b25;
     border-left: 3px solid #00cfff;
 }
-
 .user-message {
     background: #151a20;
     border-right: 3px solid #777;
     text-align: right;
 }
-
 .input-area {
     display: flex;
     gap: 8px;
     margin-top: 12px;
 }
-
 #command {
     flex: 1;
-    min-width: 0;
     background: #0b1117;
     border: 1px solid #17637c;
     border-radius: 11px;
@@ -156,11 +115,6 @@ body {
     outline: none;
     font-size: 14px;
 }
-
-#command:focus {
-    border-color: #00cfff;
-}
-
 button {
     border: none;
     border-radius: 11px;
@@ -168,46 +122,9 @@ button {
     background: #00cfff;
     color: #001018;
     font-weight: bold;
+    cursor: pointer;
 }
-
-#sendButton {
-    min-width: 70px;
-}
-
-.mic-button {
-    width: 100%;
-    margin-top: 10px;
-    background: #071b25;
-    border: 1px solid #00cfff;
-    color: #00cfff;
-}
-
-.mic-button.listening {
-    background: #00cfff;
-    color: #001018;
-    box-shadow: 0 0 20px #00cfff;
-}
-
-.quick-title {
-    margin-top: 22px;
-    color: #71818c;
-    font-size: 10px;
-    letter-spacing: 2px;
-}
-
-.quick-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 9px;
-}
-
-.quick-buttons button {
-    background: #0b151c;
-    color: #00cfff;
-    border: 1px solid #164b60;
-}
-
+#sendButton { min-width: 70px; }
 .footer {
     text-align: center;
     margin-top: auto;
@@ -216,15 +133,11 @@ button {
     font-size: 9px;
     letter-spacing: 2px;
 }
-
 </style>
-
 </head>
-
 <body>
 
 <div class="container">
-
     <div class="header">
         <div class="logo">JARVIS</div>
         <div class="version">ARTIFICIAL INTELLIGENCE • V3</div>
@@ -238,9 +151,7 @@ button {
 
     <div class="chat-box" id="chatBox">
         <div class="message jarvis-message">
-            Welcome sir. I am JARVIS V3.
-            <br><br>
-            How may I assist you?
+            Welcome sir. I am JARVIS V3.<br><br>How may I assist you?
         </div>
     </div>
 
@@ -249,27 +160,13 @@ button {
         <button id="sendButton" onclick="sendCommand()">SEND</button>
     </div>
 
-    <button class="mic-button" id="micButton" onclick="startListening()">START VOICE COMMAND</button>
-
-    <div class="quick-title">QUICK COMMANDS</div>
-
-    <div class="quick-buttons">
-        <button onclick="quickCommand('What time is it?')">TIME</button>
-        <button onclick="quickCommand('What is today date?')">DATE</button>
-        <button onclick="quickCommand('Open YouTube')">YOUTUBE</button>
-        <button onclick="quickCommand('Open Google')">GOOGLE</button>
-    </div>
-
     <div class="footer">JARVIS V3 • MISBAH</div>
-
 </div>
 
 <script>
-
 const commandInput = document.getElementById("command");
 const chatBox = document.getElementById("chatBox");
 const statusText = document.getElementById("status");
-const micButton = document.getElementById("micButton");
 
 commandInput.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
@@ -291,189 +188,39 @@ function sendCommand() {
 
     addMessage(command, "user-message");
     commandInput.value = "";
-    processCommand(command);
+    askJARVIS(command);
 }
 
-function quickCommand(command) {
-    commandInput.value = command;
-    sendCommand();
-}
+async function askJARVIS(command) {
+    try {
+        statusText.innerText = "JARVIS THINKING...";
 
-async function processCommand(command) {
-    const lower = command.toLowerCase();
-    statusText.innerText = "PROCESSING...";
-
-    if (lower.includes("what time") || lower === "time") {
-        const time = new Date().toLocaleTimeString();
-        respond("The current time is " + time + ", sir.");
-        return;
-    }
-
-    if (lower.includes("today date") || lower.includes("what is the date") || lower === "date") {
-        const date = new Date().toLocaleDateString(undefined, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
+        const response = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ command: command })
         });
-        respond("Today is " + date + ", sir.");
-        return;
-    }
 
-    if (lower.includes("open youtube")) {
-        let searchText = "";
-        if (lower.includes("search")) {
-            searchText = command.split(/search/i)[1]?.trim() || "";
-        }
-        openYouTube(searchText);
-        return;
-    }
-
-    if (lower.includes("search google") || lower.includes("search for")) {
-        let searchText = command.replace(/search google/i, "").replace(/search for/i, "").trim();
-
-        if (!searchText) {
-            respond("What would you like me to search for, sir?");
-            return;
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.reply || "Server error");
         }
 
-        searchGoogle(searchText);
-        return;
+        respond(data.reply);
+
+    } catch (error) {
+        console.error("JARVIS ERROR:", error);
+        statusText.innerText = "SYSTEM ONLINE";
+        respond("I could not connect to the server, sir. Please check your setup.");
     }
-
-    if (lower === "open google") {
-        window.open("https://www.google.com", "_blank");
-        respond("Opening Google, sir.");
-        return;
-    }
-
-    if (lower === "stop" || lower === "be quiet") {
-        speechSynthesis.cancel();
-        respond("Voice output stopped, sir.");
-        return;
-    }
-
-    await askOpenAI(command);
-}
-
-function openYouTube(searchText) {
-    let url = "https://www.youtube.com";
-    if (searchText) {
-        url = "https://www.youtube.com/results?search_query=" + encodeURIComponent(searchText);
-        respond("Searching YouTube for " + searchText + ", sir.");
-    } else {
-        respond("Opening YouTube, sir.");
-    }
-    window.open(url, "_blank");
-}
-
-function searchGoogle(searchText) {
-    const url = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
-    window.open(url, "_blank");
-    respond("Searching Google for " + searchText + ", sir.");
 }
 
 function respond(text) {
     addMessage(text, "jarvis-message");
     statusText.innerText = "SYSTEM ONLINE";
-    speak(text);
 }
-
-function speak(text) {
-    if (!("speechSynthesis" in window)) return;
-
-    speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = "en-US";
-    speech.rate = 0.95;
-    speech.pitch = 0.9;
-    speech.volume = 1;
-    speechSynthesis.speak(speech);
-}
-
-async function askOpenAI(command) {
-    try {
-        statusText.innerText = "JARVIS THINKING...";
-
-        const response = await fetch("/api/chat.js", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ command: command })
-        });
-
-        if (!response.ok) {
-            throw new Error("Server error " + response.status);
-        }
-
-        const data = await response.json();
-        const answer = data.reply || data.choices?.[0]?.message?.content || "I received a response, sir, but could not parse the text.";
-
-        respond(answer.trim());
-
-    } catch (error) {
-        console.error("JARVIS ERROR:", error);
-        statusText.innerText = "CONNECTION ERROR";
-        respond("I could not connect to the server, sir. Please check your network connection.");
-    }
-}
-
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recognition = null;
-
-if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
-    recognition.lang = "en-US";
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    recognition.onstart = function() {
-        micButton.classList.add("listening");
-        micButton.innerText = "LISTENING...";
-        statusText.innerText = "LISTENING";
-    };
-
-    recognition.onresult = function(event) {
-        const text = event.results[0][0].transcript;
-        commandInput.value = text;
-        resetMicButton();
-        sendCommand();
-    };
-
-    recognition.onerror = function(event) {
-        console.error("Speech Recognition Error:", event.error);
-        statusText.innerText = "VOICE ERROR";
-        resetMicButton();
-    };
-
-    recognition.onend = function() {
-        resetMicButton();
-    };
-}
-
-function startListening() {
-    if (!recognition) {
-        respond("Speech recognition is not supported in this browser, sir.");
-        return;
-    }
-    try {
-        recognition.start();
-    } catch (e) {
-        console.warn("Recognition active:", e);
-    }
-}
-
-function resetMicButton() {
-    micButton.classList.remove("listening");
-    micButton.innerText = "START VOICE COMMAND";
-    if (statusText.innerText === "LISTENING") {
-        statusText.innerText = "SYSTEM ONLINE";
-    }
-}
-
 </script>
 
 </body>
-
 </html>
