@@ -395,7 +395,7 @@ async function askOpenAI(command) {
     try {
         statusText.innerText = "JARVIS THINKING...";
 
-        const response = await fetch("/api/chat", {
+        const response = await fetch("/api/chat.js", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -408,7 +408,7 @@ async function askOpenAI(command) {
         }
 
         const data = await response.json();
-        const answer = data.choices?.[0]?.message?.content || "I received a response, sir, but could not parse the text.";
+        const answer = data.reply || data.choices?.[0]?.message?.content || "I received a response, sir, but could not parse the text.";
 
         respond(answer.trim());
 
@@ -476,5 +476,4 @@ function resetMicButton() {
 
 </body>
 
-  </html>
-  
+</html>
